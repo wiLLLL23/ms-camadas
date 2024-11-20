@@ -26,5 +26,11 @@ public class UserServiceImpl implements UserService {
         return new UserDto(user);
     }
 
+    @Override
+    public UserDto findByName(final String name) {
+        final var user = repository.findByName(name);
+        return new UserDto(user);
+    }
+
 
 }
