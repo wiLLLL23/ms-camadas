@@ -5,6 +5,8 @@ import com.devwill.mscamadas.repositories.UserRepository;
 import com.devwill.mscamadas.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -14,11 +16,13 @@ public class UserServiceImpl implements UserService {
         this.repository = repository;
     }
 
-//    @Override
-//    public UserDto findAllUsers() {
-//        final var users = repository.findAll();
-//        return new UserDto(users);
-//    }
+    @Override
+    public List<UserDto> findAllUsers() {
+        return repository.findAll()
+                .stream()
+                .map(user -> new UserDto(user))
+                .toList();
+    }
 
     @Override
     public UserDto findById(final Long id) {
@@ -31,6 +35,4 @@ public class UserServiceImpl implements UserService {
         final var user = repository.findByName(name);
         return new UserDto(user);
     }
-
-
 }
